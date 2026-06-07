@@ -36,13 +36,7 @@ public class TennisGame6 : ITennisGame
         string result;
         string regularScore;
 
-        var score1 = player1Score switch
-        {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            _ => "Forty"
-        };
+        var score1 = GetScoreString(player1Score);
 
         var score2 = player2Score switch
         {
@@ -56,6 +50,17 @@ public class TennisGame6 : ITennisGame
 
         result = regularScore;
         return result;
+    }
+
+    private string GetScoreString(int score)
+    {
+        return score switch
+        {
+            0 => "Love",
+            1 => "Fifteen",
+            2 => "Thirty",
+            _ => "Forty"
+        };
     }
 
     private string GetEndGameScore()
