@@ -33,16 +33,10 @@ public class TennisGame6 : ITennisGame
 
     private string GetRegularScore()
     {
-        string result;
-        string regularScore;
-
         var score1 = GetScoreString(player1Score);
         var score2 = GetScoreString(player2Score);
 
-        regularScore = $"{score1}-{score2}";
-
-        result = regularScore;
-        return result;
+        return $"{score1}-{score2}";
     }
 
     private string GetScoreString(int score)
