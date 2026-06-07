@@ -25,10 +25,15 @@ public class TennisGame6 : ITennisGame
     {
         if (player1Score == player2Score)
             return GetTieScore();
-        if (player1Score >= 4 || player2Score >= 4)
+        if (IsGamePoint())
             return GetEndGameScore();
         
         return GetRegularScore();
+    }
+
+    private bool IsGamePoint()
+    {
+        return player1Score >= 4 || player2Score >= 4;
     }
 
     private string GetRegularScore()
