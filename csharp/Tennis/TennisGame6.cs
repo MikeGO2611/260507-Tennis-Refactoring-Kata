@@ -23,12 +23,17 @@ public class TennisGame6 : ITennisGame
 
     public string GetScore()
     {
-        if (player1Score == player2Score)
+        if (ArePlayersTied())
             return GetTieScore();
         if (IsGamePoint())
             return GetEndGameScore();
         
         return GetRegularScore();
+    }
+
+    private bool ArePlayersTied()
+    {
+        return player1Score == player2Score;
     }
 
     private bool IsGamePoint()
