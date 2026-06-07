@@ -32,25 +32,7 @@ public class TennisGame6 : ITennisGame
         else if (player1Score >= 4 || player2Score >= 4)
         {
             // end-game score
-            string endGameScore;
-
-            switch (player1Score - player2Score)
-            {
-                case 1:
-                    endGameScore = $"Advantage {player1Name}";
-                    break;
-                case -1:
-                    endGameScore = $"Advantage {player2Name}";
-                    break;
-                case >= 2:
-                    endGameScore = $"Win for {player1Name}";
-                    break;
-                default:
-                    endGameScore = $"Win for {player2Name}";
-                    break;
-            }
-
-            result = endGameScore;
+            result = GetEndGameScore();
         }
         else
         {
@@ -78,6 +60,31 @@ public class TennisGame6 : ITennisGame
             result = regularScore;
         }
 
+        return result;
+    }
+
+    private string GetEndGameScore()
+    {
+        string result;
+        string endGameScore;
+
+        switch (player1Score - player2Score)
+        {
+            case 1:
+                endGameScore = $"Advantage {player1Name}";
+                break;
+            case -1:
+                endGameScore = $"Advantage {player2Name}";
+                break;
+            case >= 2:
+                endGameScore = $"Win for {player1Name}";
+                break;
+            default:
+                endGameScore = $"Win for {player2Name}";
+                break;
+        }
+
+        result = endGameScore;
         return result;
     }
 
