@@ -63,25 +63,12 @@ public class TennisGame6 : ITennisGame
 
     private string GetTieScore()
     {
-        string result;
-        string tieScore;
-        switch (player1Score)
+        return player1Score switch
         {
-            case 0:
-                tieScore = "Love-All";
-                break;
-            case 1:
-                tieScore = "Fifteen-All";
-                break;
-            case 2:
-                tieScore = "Thirty-All";
-                break;
-            default:
-                tieScore = "Deuce";
-                break;
-        }
-
-        result = tieScore;
-        return result;
+            0 => "Love-All",
+            1 => "Fifteen-All",
+            2 => "Thirty-All",
+            _ => "Deuce"
+        };
     }
 }
