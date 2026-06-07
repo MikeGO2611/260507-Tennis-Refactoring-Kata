@@ -1,22 +1,44 @@
 namespace Tennis;
 
+public class Player
+{
+    private int score;
+    private string name;
+
+    public Player(string name)
+    {
+        this.name = name;
+    }
+
+    public int Score
+    {
+        set { score = value; }
+        get { return score; }
+    }
+
+    public string Name
+    {
+        set { name = value; }
+        get { return name; }
+    }
+}
+
 public class TennisGame6 : ITennisGame
 {
-    private int player1Score;
     private int player2Score;
-    private string player1Name;
     private string player2Name;
+    private readonly Player _player1;
 
     public TennisGame6(string player1Name, string player2Name)
     {
-        this.player1Name = player1Name;
+        _player1 = new Player(player1Name);
         this.player2Name = player2Name;
     }
 
     public void WonPoint(string playerName)
     {
-        if (playerName == player1Name)
-            player1Score++;
+        if (playerName == _player1.Name)
+            _player1.Score++;
         else
             player2Score++;
     }
@@ -33,17 +55,17 @@ public class TennisGame6 : ITennisGame
 
     private bool ArePlayersTied()
     {
-        return player1Score == player2Score;
+        return _player1.Score == player2Score;
     }
 
     private bool IsGamePoint()
     {
-        return player1Score >= 4 || player2Score >= 4;
+        return _player1.Score >= 4 || player2Score >= 4;
     }
 
     private string GetRegularScore()
     {
-        var score1 = GetScoreString(player1Score);
+        var score1 = GetScoreString(_player1.Score);
         var score2 = GetScoreString(player2Score);
 
         return $"{score1}-{score2}";
@@ -62,18 +84,18 @@ public class TennisGame6 : ITennisGame
 
     private string GetEndGameScore()
     {
-        return (player1Score - player2Score) switch
+        return (_player1.Score - player2Score) switch
         {
-            1 => $"Advantage {player1Name}",
+            1 => $"Advantage {_player1.Name}",
             -1 => $"Advantage {player2Name}",
-            >= 2 => $"Win for {player1Name}",
+            >= 2 => $"Win for {_player1.Name}",
             _ => $"Win for {player2Name}"
         };
     }
 
     private string GetTieScore()
     {
-        return player1Score switch
+        return _player1.Score switch
         {
             0 => "Love-All",
             1 => "Fifteen-All",
