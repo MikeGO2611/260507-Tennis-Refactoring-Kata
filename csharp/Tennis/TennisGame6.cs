@@ -27,25 +27,7 @@ public class TennisGame6 : ITennisGame
 
         if (player1Score == player2Score)
         {
-            // tie score
-            string tieScore;
-            switch (player1Score)
-            {
-                case 0:
-                    tieScore = "Love-All";
-                    break;
-                case 1:
-                    tieScore = "Fifteen-All";
-                    break;
-                case 2:
-                    tieScore = "Thirty-All";
-                    break;
-                default:
-                    tieScore = "Deuce";
-                    break;
-            }
-
-            result = tieScore;
+            result = GetTieScore();
         }
         else if (player1Score >= 4 || player2Score >= 4)
         {
@@ -96,6 +78,30 @@ public class TennisGame6 : ITennisGame
             result = regularScore;
         }
 
+        return result;
+    }
+
+    private string GetTieScore()
+    {
+        string result;
+        string tieScore;
+        switch (player1Score)
+        {
+            case 0:
+                tieScore = "Love-All";
+                break;
+            case 1:
+                tieScore = "Fifteen-All";
+                break;
+            case 2:
+                tieScore = "Thirty-All";
+                break;
+            default:
+                tieScore = "Deuce";
+                break;
+        }
+
+        result = tieScore;
         return result;
     }
 }
