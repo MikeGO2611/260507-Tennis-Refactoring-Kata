@@ -23,23 +23,12 @@ public class TennisGame6 : ITennisGame
 
     public string GetScore()
     {
-        string result;
-
         if (player1Score == player2Score)
-        {
-            result = GetTieScore();
-        }
-        else if (player1Score >= 4 || player2Score >= 4)
-        {
-            // end-game score
-            result = GetEndGameScore();
-        }
-        else
-        {
-            result = GetRegularScore();
-        }
-
-        return result;
+            return GetTieScore();
+        if (player1Score >= 4 || player2Score >= 4)
+            return GetEndGameScore();
+        
+        return GetRegularScore();
     }
 
     private string GetRegularScore()
