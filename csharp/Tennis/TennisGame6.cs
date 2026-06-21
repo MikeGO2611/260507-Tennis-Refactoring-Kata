@@ -25,8 +25,6 @@ public class Player
 
 public class TennisGame6 : ITennisGame
 { 
-    // Extraer player2 a clase Player
-    private string player2Name;
     private readonly Player _player1;
     private readonly Player _player2;
 
@@ -34,7 +32,6 @@ public class TennisGame6 : ITennisGame
     {
         _player1 = new Player(player1Name);
         _player2 = new Player(player2Name);
-        this.player2Name = player2Name;
     }
 
     public void WonPoint(string playerName)
@@ -89,9 +86,9 @@ public class TennisGame6 : ITennisGame
         return (_player1.Score - _player2.Score) switch
         {
             1 => $"Advantage {_player1.Name}",
-            -1 => $"Advantage {player2Name}",
+            -1 => $"Advantage {_player2.Name}",
             >= 2 => $"Win for {_player1.Name}",
-            _ => $"Win for {player2Name}"
+            _ => $"Win for {_player2.Name}"
         };
     }
 
