@@ -4,7 +4,7 @@ public class Player
 {
     public Player(string name)
     {
-        this.Name = name;
+        Name = name;
     }
 
     public int Score { get; private set; }
@@ -13,6 +13,47 @@ public class Player
     public void WinPoint()
     {
         Score++;
+    }
+
+    public string GetRegularScore(Player adversary)
+    {
+        var score1 = GetScoreString(Score);
+        var score2 = GetScoreString(adversary.Score);
+
+        return $"{score1}-{score2}";
+    }
+
+    private string GetScoreString(int score)
+    {
+        return score switch
+        {
+            0 => "Love",
+            1 => "Fifteen",
+            2 => "Thirty",
+            _ => "Forty"
+        };
+    }
+
+    public string GetEndGameScore(Player adversary)
+    {
+        return (Score - adversary.Score) switch
+        {
+            1 => $"Advantage {Name}",
+            -1 => $"Advantage {adversary.Name}",
+            >= 2 => $"Win for {Name}",
+            _ => $"Win for {adversary.Name}"
+        };
+    }
+
+    public string GetTieScore()
+    {
+        return Score switch
+        {
+            0 => "Love-All",
+            1 => "Fifteen-All",
+            2 => "Thirty-All",
+            _ => "Deuce"
+        };
     }
 }
 
@@ -38,11 +79,11 @@ public class TennisGame6 : ITennisGame
     public string GetScore()
     {
         if (ArePlayersTied())
-            return GetTieScore();
+            return _player1.GetTieScore();
         if (IsGamePoint())
-            return GetEndGameScore();
+            return _player1.GetEndGameScore(_player2);
         
-        return GetRegularScore();
+        return _player1.GetRegularScore(_player2);
     }
 
     private bool ArePlayersTied()
@@ -53,46 +94,5 @@ public class TennisGame6 : ITennisGame
     private bool IsGamePoint()
     {
         return _player1.Score >= 4 || _player2.Score >= 4; // Feature envy
-    }
-
-    private string GetRegularScore()
-    {
-        var score1 = GetScoreString(_player1.Score);
-        var score2 = GetScoreString(_player2.Score);
-
-        return $"{score1}-{score2}";
-    }
-
-    private static string GetScoreString(int score)
-    {
-        return score switch
-        {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            _ => "Forty"
-        };
-    }
-
-    private string GetEndGameScore()
-    {
-        return (_player1.Score - _player2.Score) switch
-        {
-            1 => $"Advantage {_player1.Name}",
-            -1 => $"Advantage {_player2.Name}",
-            >= 2 => $"Win for {_player1.Name}",
-            _ => $"Win for {_player2.Name}"
-        };
-    }
-
-    private string GetTieScore()
-    {
-        return _player1.Score switch
-        {
-            0 => "Love-All",
-            1 => "Fifteen-All",
-            2 => "Thirty-All",
-            _ => "Deuce"
-        };
     }
 }
