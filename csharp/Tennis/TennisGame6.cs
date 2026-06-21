@@ -21,6 +21,11 @@ public class Player
         set { name = value; }
         get { return name; }
     }
+
+    public void WinPoint()
+    {
+        Score++;
+    }
 }
 
 public class TennisGame6 : ITennisGame
@@ -37,14 +42,9 @@ public class TennisGame6 : ITennisGame
     public void WonPoint(string playerName)
     {
         if (playerName == _player1.Name) // Feature envy
-            WinPoint(_player1); // Delegar responsabilidad a player
+            _player1.WinPoint();
         else
-            WinPoint(_player2);
-    }
-
-    private int WinPoint(Player player)
-    {
-        return player.Score++;
+            _player2.WinPoint();
     }
 
     public string GetScore()
