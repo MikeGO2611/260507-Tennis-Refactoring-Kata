@@ -1,31 +1,16 @@
 namespace Tennis;
 
-public class Player
+public class Score
 {
-    public Player(string name)
+    public Score()
     {
-        Name = name;
     }
 
-    public int Score { get; private set; }
-    public string Name { get; }
+    public int Value { get; set; }
 
-    public void WinPoint()
+    public string ToDescription()
     {
-        Score++;
-    }
-
-    public string GetRegularScore(Player adversary)
-    {
-        var score1 = GetScoreString(Score);
-        var score2 = GetScoreString(adversary.Score);
-
-        return $"{score1}-{score2}";
-    }
-
-    private string GetScoreString(int score)
-    {
-        return score switch
+        return Value switch
         {
             0 => "Love",
             1 => "Fifteen",
@@ -33,10 +18,36 @@ public class Player
             _ => "Forty"
         };
     }
+}
+
+public class Player
+{
+    public Player(string name)
+    {
+        Name = name;
+        Score1 = new Score();
+    }
+
+    public string Name { get; }
+
+    public Score Score1 { get; }
+
+    public void WinPoint()
+    {
+        Score1.Value++; //Envy
+    }
+
+    public string GetRegularScore(Player adversary)
+    {
+        var score1 = Score1.ToDescription();
+        var score2 = adversary.Score1.ToDescription();
+
+        return $"{score1}-{score2}";
+    }
 
     public string GetEndGameScore(Player adversary)
     {
-        return (Score - adversary.Score) switch
+        return (Score1.Value - adversary.Score1.Value) switch //Envy, Chain
         {
             1 => $"Advantage {Name}",
             -1 => $"Advantage {adversary.Name}",
@@ -47,7 +58,7 @@ public class Player
 
     public string GetTieScore()
     {
-        return Score switch
+        return Score1.Value switch //Envy
         {
             0 => "Love-All",
             1 => "Fifteen-All",
@@ -88,11 +99,11 @@ public class TennisGame6 : ITennisGame
 
     private bool ArePlayersTied()
     {
-        return _player1.Score == _player2.Score; // Feature envy. Metodo a player
+        return _player1.Score1.Value == _player2.Score1.Value; // Feature envy. Chain
     }
 
     private bool IsGamePoint()
     {
-        return _player1.Score >= 4 || _player2.Score >= 4; // Feature envy
+        return _player1.Score1.Value >= 4 || _player2.Score1.Value >= 4; // Feature envy. Chain
     }
 }
