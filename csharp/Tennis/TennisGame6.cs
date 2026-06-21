@@ -12,13 +12,12 @@ public class Player
 
     public int Score
     {
-        set { score = value; }
         get { return score; }
+        private set { score = value; }
     }
 
     public string Name
     {
-        set { name = value; }
         get { return name; }
     }
 
