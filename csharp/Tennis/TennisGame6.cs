@@ -2,24 +2,13 @@ namespace Tennis;
 
 public class Player
 {
-    private int score;
-    private string name;
-
     public Player(string name)
     {
-        this.name = name;
+        this.Name = name;
     }
 
-    public int Score
-    {
-        get { return score; }
-        private set { score = value; }
-    }
-
-    public string Name
-    {
-        get { return name; }
-    }
+    public int Score { get; private set; }
+    public string Name { get; }
 
     public void WinPoint()
     {
