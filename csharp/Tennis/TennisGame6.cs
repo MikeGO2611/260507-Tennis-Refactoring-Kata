@@ -24,7 +24,7 @@ public class Player
 }
 
 public class TennisGame6 : ITennisGame
-{
+{ 
     private int player2Score;
     private string player2Name;
     private readonly Player _player1;
