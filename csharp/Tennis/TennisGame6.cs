@@ -37,9 +37,14 @@ public class TennisGame6 : ITennisGame
     public void WonPoint(string playerName)
     {
         if (playerName == _player1.Name) // Feature envy
-            _player1.Score++; // Delegar responsabilidad a player
+            WinPoint(_player1); // Delegar responsabilidad a player
         else
-            _player2.Score++;
+            WinPoint(_player2);
+    }
+
+    private int WinPoint(Player player)
+    {
+        return player.Score++;
     }
 
     public string GetScore()
