@@ -25,22 +25,24 @@ public class Player
 
 public class TennisGame6 : ITennisGame
 { 
-    private int player2Score;
+    // Extraer player2 a clase Player
     private string player2Name;
     private readonly Player _player1;
+    private readonly Player _player2;
 
     public TennisGame6(string player1Name, string player2Name)
     {
         _player1 = new Player(player1Name);
+        _player2 = new Player(player2Name);
         this.player2Name = player2Name;
     }
 
     public void WonPoint(string playerName)
     {
-        if (playerName == _player1.Name)
-            _player1.Score++;
+        if (playerName == _player1.Name) // Feature envy
+            _player1.Score++; // Delegar responsabilidad a player
         else
-            player2Score++;
+            _player2.Score++;
     }
 
     public string GetScore()
@@ -55,18 +57,18 @@ public class TennisGame6 : ITennisGame
 
     private bool ArePlayersTied()
     {
-        return _player1.Score == player2Score;
+        return _player1.Score == _player2.Score; // Feature envy. Metodo a player
     }
 
     private bool IsGamePoint()
     {
-        return _player1.Score >= 4 || player2Score >= 4;
+        return _player1.Score >= 4 || _player2.Score >= 4; // Feature envy
     }
 
     private string GetRegularScore()
     {
         var score1 = GetScoreString(_player1.Score);
-        var score2 = GetScoreString(player2Score);
+        var score2 = GetScoreString(_player2.Score);
 
         return $"{score1}-{score2}";
     }
@@ -84,7 +86,7 @@ public class TennisGame6 : ITennisGame
 
     private string GetEndGameScore()
     {
-        return (_player1.Score - player2Score) switch
+        return (_player1.Score - _player2.Score) switch
         {
             1 => $"Advantage {_player1.Name}",
             -1 => $"Advantage {player2Name}",
